@@ -1,0 +1,23 @@
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #000000;
+}
+
+.canvasLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.canvasLayer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

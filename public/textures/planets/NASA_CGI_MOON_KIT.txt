@@ -1,0 +1,9 @@
+Лунные текстуры — NASA Scientific Visualization Studio, «CGI Moon Kit» (LROC WAC natural color + LOLA elevation subset).
+
+Страница и скачивание: https://svs.gsfc.nasa.gov/4720/
+
+Файлы в этой папке:
+- moon_nasa_lroc_4k.jpg — конвертация из lroc_color_16bit_srgb_4k.tif (команда: pnpm run fetch-moon-4k)
+- moon_nasa_lroc_2k.jpg — lroc_color_2k.jpg с того же сайта
+
+Условия: публичные данные NASA; в материалах указывайте кредит NASA’s Scientific Visualization Studio.

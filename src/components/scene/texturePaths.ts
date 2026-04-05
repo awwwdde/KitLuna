@@ -1,0 +1,23 @@
+function publicUrl(path: string): string {
+  const base = import.meta.env.BASE_URL ?? '/'
+  if (base === '/') return path.startsWith('/') ? path : `/${path}`
+  const b = base.replace(/\/$/, '')
+  const p = path.startsWith('/') ? path : `/${path}`
+  return `${b}${p}`
+}
+
+/**
+ * NASA Scientific Visualization Studio — CGI Moon Kit (LROC WAC natural color).
+ * https://svs.gsfc.nasa.gov/4720/ — public domain, credit NASA SVS.
+ *
+ * `moon_nasa_lroc_4k.jpg` — из `pnpm run fetch-moon-4k` (TIFF 4096×2048 → JPEG).
+ * `moon_nasa_lroc_2k.jpg` — официальный JPEG 2048×1024 с того же сайта.
+ */
+export const MOON_ALBEDO_CANDIDATES = [
+  publicUrl('/textures/planets/moon_nasa_lroc_4k.jpg'),
+  publicUrl('/textures/planets/moon_nasa_lroc_2k.jpg'),
+  publicUrl('/textures/planets/moon_8192.jpg'),
+  publicUrl('/textures/planets/moon_4096.jpg'),
+  publicUrl('/textures/planets/moon_2048.jpg'),
+  publicUrl('/textures/planets/moon_1024.jpg'),
+] as const
