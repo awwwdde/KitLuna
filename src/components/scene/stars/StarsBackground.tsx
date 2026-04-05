@@ -11,7 +11,7 @@ export const StarsBackground = memo(function StarsBackground() {
         factor={6.5}
         saturation={0.04}
         fade
-        speed={0.04}
+        speed={0.048}
       />
       {/* Второй слой под углом — плотнее «пояс» как у Млечного Пути */}
       <group rotation={[0.35, -0.85, 0.15]}>
@@ -22,7 +22,7 @@ export const StarsBackground = memo(function StarsBackground() {
           factor={8}
           saturation={0.025}
           fade
-          speed={0.032}
+          speed={0.04}
         />
       </group>
     </group>

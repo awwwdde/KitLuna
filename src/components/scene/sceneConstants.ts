@@ -13,3 +13,11 @@ export const KEY_LIGHT_POSITION = new THREE.Vector3(-5.5, 5.2, 16)
 
 /** Сегменты сферы (без displacement — bump + albedo). */
 export const MOON_SPHERE_SEGMENTS = 160
+
+/** Доп. отдаление камеры по Z при scrollProgress = 1 (десктоп). */
+export const CAMERA_SCROLL_PULL_Z_DESKTOP = 15
+/** То же на мобильном layout. */
+export const CAMERA_SCROLL_PULL_Z_MOBILE = 11
+
+/** Расширение FOV при полном скролле (градусы). */
+export const CAMERA_SCROLL_FOV_EXTRA = 6

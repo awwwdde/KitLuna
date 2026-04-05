@@ -2,7 +2,7 @@ import { memo, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-const N = 800
+const N = 1200
 
 /** Второй слой — дальние искры, теплее. */
 export const DistantMotes = memo(function DistantMotes() {
@@ -27,7 +27,7 @@ export const DistantMotes = memo(function DistantMotes() {
       color: 0xc4b8a8,
       size: 0.045,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.34,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       sizeAttenuation: true,
@@ -36,7 +36,9 @@ export const DistantMotes = memo(function DistantMotes() {
   }, [])
 
   useFrame(({ clock }) => {
-    if (ref.current) ref.current.rotation.y = -clock.elapsedTime * 0.006
+    if (!ref.current) return
+    const t = clock.elapsedTime
+    ref.current.rotation.y = -t * 0.0055 + Math.cos(t * 0.06) * 0.008
   })
 
   return <points ref={ref} geometry={geometry} material={material} renderOrder={-2} />

@@ -2,7 +2,7 @@ import { memo, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-const N = 1100
+const N = 1600
 
 /** Пыль ближе к луне — мягкое свечение. */
 export const Particles = memo(function Particles() {
@@ -27,7 +27,7 @@ export const Particles = memo(function Particles() {
       color: 0xa8b8e0,
       size: 0.032,
       transparent: true,
-      opacity: 0.42,
+      opacity: 0.48,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       sizeAttenuation: true,
@@ -36,7 +36,11 @@ export const Particles = memo(function Particles() {
   }, [])
 
   useFrame(({ clock }) => {
-    if (ref.current) ref.current.rotation.y = clock.elapsedTime * 0.01
+    if (!ref.current) return
+    const t = clock.elapsedTime
+    ref.current.rotation.y = t * 0.009 + Math.sin(t * 0.08) * 0.012
+    const m = ref.current.material as THREE.PointsMaterial
+    m.opacity = 0.44 + Math.sin(t * 0.35) * 0.05
   })
 
   return <points ref={ref} geometry={geometry} material={material} />

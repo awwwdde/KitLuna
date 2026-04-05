@@ -53,7 +53,7 @@ export const MilkyWayBand = memo(function MilkyWayBand() {
       map: map ?? undefined,
       color: 0xffffff,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.64,
       depthWrite: false,
       side: THREE.DoubleSide,
       blending: THREE.AdditiveBlending,
