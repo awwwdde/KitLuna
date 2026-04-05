@@ -50,7 +50,7 @@ export function Footer() {
               <a href="mailto:hello@kitluna.studio" className={footerLink}>
                 Почта
               </a>
-              <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className={footerLink}>
+              <a href="https://t.me/BITLUNA_IT" target="_blank" rel="noopener noreferrer" className={footerLink}>
                 Telegram
               </a>
               <a href="https://www.behance.net/" target="_blank" rel="noopener noreferrer" className={footerLink}>
