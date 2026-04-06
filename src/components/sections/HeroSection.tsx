@@ -22,10 +22,10 @@ export function HeroSection() {
     <div className="pointer-events-auto flex min-h-[100dvh] w-full flex-col justify-center px-6 py-16 md:px-14 md:py-20">
       <div className="mx-auto w-full max-w-[64rem]">
         <p className="mb-5 font-[family-name:var(--font-ui)] text-[0.7rem] font-medium uppercase tracking-[0.32em] text-white/45">
-          {isRu ? 'Цифровая дизайн‑студия' : 'Digital design studio'}
+          {isRu ? 'Студия разработки и дизайна' : 'Development and design studio'}
         </p>
         <h1 className="font-display max-w-[22ch] text-[clamp(2.9rem,7vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.03em] text-white">
-          {isRu ? 'Сайты с ритмом, светом и смыслом' : 'Websites with rhythm, light, and meaning'}
+          {isRu ? 'Создаем настоящие цифровые продукты которые приводят клиентов' : 'We create real digital products that bring clients'}
         </h1>
         <p className="mt-7 max-w-[60ch] font-[family-name:var(--font-ui)] text-base leading-relaxed text-white/60 md:text-lg">
           {isRu

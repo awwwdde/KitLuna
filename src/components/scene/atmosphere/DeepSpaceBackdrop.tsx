@@ -8,7 +8,7 @@ export const DeepSpaceBackdrop = memo(function DeepSpaceBackdrop() {
       new THREE.MeshBasicMaterial({
         color: 0x0c0c0c,
         transparent: true,
-        opacity: 0.18,
+        opacity: 0.22,
         side: THREE.BackSide,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
@@ -20,7 +20,19 @@ export const DeepSpaceBackdrop = memo(function DeepSpaceBackdrop() {
       new THREE.MeshBasicMaterial({
         color: 0x080808,
         transparent: true,
-        opacity: 0.1,
+        opacity: 0.12,
+        side: THREE.BackSide,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      }),
+    []
+  )
+  const mid = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: 0x0a0a0c,
+        transparent: true,
+        opacity: 0.09,
         side: THREE.BackSide,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
@@ -32,6 +44,9 @@ export const DeepSpaceBackdrop = memo(function DeepSpaceBackdrop() {
     <group renderOrder={-8}>
       <mesh material={outer}>
         <sphereGeometry args={[120, 32, 32]} />
+      </mesh>
+      <mesh material={mid}>
+        <sphereGeometry args={[96, 28, 28]} />
       </mesh>
       <mesh material={inner}>
         <sphereGeometry args={[72, 24, 24]} />

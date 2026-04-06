@@ -11,7 +11,7 @@ import { useScrollStore } from '@/store/useScrollStore'
 const DRIFT = { x: 0.05, y: 0.035, z: 0.045 }
 
 /**
- * Камера отделена от мешей: крупный план луны + лёгкий дрейф.
+ * Камера только отъезжает по Z со скроллом; направление взгляда фиксировано (lookAt из layout).
  */
 export function CameraRig() {
   const { camera } = useThree()

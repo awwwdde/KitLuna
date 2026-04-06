@@ -2,7 +2,7 @@ import { memo, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-const N = 1200
+const N = 2400
 
 /** Второй слой — дальние искры, теплее. */
 export const DistantMotes = memo(function DistantMotes() {
@@ -27,7 +27,7 @@ export const DistantMotes = memo(function DistantMotes() {
       color: 0xc4b8a8,
       size: 0.045,
       transparent: true,
-      opacity: 0.34,
+      opacity: 0.38,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       sizeAttenuation: true,

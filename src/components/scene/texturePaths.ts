@@ -21,3 +21,19 @@ export const MOON_ALBEDO_CANDIDATES = [
   publicUrl('/textures/planets/moon_2048.jpg'),
   publicUrl('/textures/planets/moon_1024.jpg'),
 ] as const
+
+/** Земля: локальный файл или fallback (текстура из примеров three.js). */
+export const EARTH_ALBEDO_CANDIDATES = [
+  publicUrl('/textures/planets/earth_2k.jpg'),
+  'https://raw.githubusercontent.com/mrdoob/three.js/r168/examples/textures/planets/earth_atmos_2048.jpg',
+] as const
+
+/**
+ * Карта рельефа / топология (grayscale, linear) — bump + displacement.
+ * three-globe: earth-topology.png (рельеф суши/дна).
+ */
+export const EARTH_HEIGHT_CANDIDATES = [
+  publicUrl('/textures/planets/earth_topology.png'),
+  publicUrl('/textures/planets/earth_bump.jpg'),
+  'https://raw.githubusercontent.com/vasturiano/three-globe/master/example/img/earth-topology.png',
+] as const

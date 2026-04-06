@@ -5,6 +5,7 @@ import { SceneLayoutProvider } from '@/components/scene/SceneLayoutContext'
 import { AdaptiveCameraFov } from '@/components/scene/camera/AdaptiveCameraFov'
 import { CameraRig } from '@/components/scene/camera/CameraRig'
 import { Lights } from '@/components/scene/lights/Lights'
+import { Earth } from '@/components/scene/earth/Earth'
 import { Moon } from '@/components/scene/moon/Moon'
 import { StarsBackground } from '@/components/scene/stars/StarsBackground'
 import { Particles } from '@/components/scene/particles/Particles'
@@ -40,6 +41,7 @@ function SceneWorld() {
       <Particles />
       <DistantMotes />
       <Moon />
+      <Earth />
       <AudioManager />
     </>
   )

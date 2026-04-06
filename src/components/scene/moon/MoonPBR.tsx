@@ -3,12 +3,19 @@ import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'rea
 import * as THREE from 'three'
 import { MoonPlaceholder } from '@/components/scene/moon/MoonPlaceholder'
 import { useSceneLayout } from '@/components/scene/SceneLayoutContext'
-import { MOON_RADIUS, MOON_SPHERE_SEGMENTS } from '@/components/scene/sceneConstants'
+import {
+  EARTH_POSITION,
+  EARTH_POSITION_MOBILE,
+  MOON_POSITION_DEEPSPACE,
+  MOON_POSITION_DEEPSPACE_MOBILE,
+  MOON_RADIUS,
+  MOON_SPHERE_SEGMENTS,
+} from '@/components/scene/sceneConstants'
+import { computeMoonVisualPosition } from '@/components/scene/moon/moonOrbitMath'
 import { MOON_ALBEDO_CANDIDATES } from '@/components/scene/texturePaths'
+import { useScrollStore } from '@/store/useScrollStore'
 
-type MapsState = {
-  map: THREE.Texture
-}
+type MapsState = { map: THREE.Texture }
 
 function loadTexture(loader: THREE.TextureLoader, url: string): Promise<THREE.Texture> {
   return new Promise((resolve, reject) => {
@@ -41,14 +48,28 @@ function configureTexture(t: THREE.Texture, anisotropy: number, srgb: boolean) {
 }
 
 /**
- * Луна NASA LROC (CGI Moon Kit): одна карта для albedo, bump и displacement — без «земных» normal.
+ * Луна: без displacement — нет «гор». Лёгкий bump по albedo: мелкие кратеры и шлаковая зернистость.
  */
 export const Moon = memo(function Moon() {
   const { gl } = useThree()
-  const { moonPosition } = useSceneLayout()
+  const { moonPosition, isMobile } = useSceneLayout()
+  const groupRef = useRef<THREE.Group>(null)
   const meshRef = useRef<THREE.Mesh>(null)
+  const moonDeep = useMemo(
+    () => (isMobile ? MOON_POSITION_DEEPSPACE_MOBILE : MOON_POSITION_DEEPSPACE).clone(),
+    [isMobile]
+  )
+  const earthPos = useMemo(
+    () => (isMobile ? EARTH_POSITION_MOBILE : EARTH_POSITION).clone(),
+    [isMobile]
+  )
   const [maps, setMaps] = useState<MapsState | null>(null)
   const [mapFailed, setMapFailed] = useState(false)
+
+  const maxAniso = useMemo(
+    () => gl.capabilities.getMaxAnisotropy?.() ?? 8,
+    [gl]
+  )
 
   useEffect(() => {
     const loader = new THREE.TextureLoader()
@@ -60,6 +81,7 @@ export const Moon = memo(function Moon() {
           map.dispose()
           return
         }
+        configureTexture(map, maxAniso, true)
         setMaps({ map })
       })
       .catch(err => {
@@ -70,33 +92,42 @@ export const Moon = memo(function Moon() {
     return () => {
       cancelled = true
     }
-  }, [])
-
-  const maxAniso = useMemo(
-    () => gl.capabilities.getMaxAnisotropy?.() ?? 8,
-    [gl]
-  )
-
-  useLayoutEffect(() => {
-    if (!maps?.map) return
-    configureTexture(maps.map, maxAniso, true)
-  }, [maps, maxAniso])
+  }, [maxAniso])
 
   const material = useMemo(() => {
     if (!maps?.map) return null
     return new THREE.MeshStandardMaterial({
       map: maps.map,
       color: new THREE.Color(0xb8b8c0),
-      roughness: 0.98,
+      roughness: 0.99,
       metalness: 0,
       bumpMap: maps.map,
-      bumpScale: 0.1,
+      bumpScale: 0.045,
       emissive: new THREE.Color(0x020305),
       emissiveIntensity: 0.012,
     })
   }, [maps])
 
-  useFrame((_, delta) => {
+  useLayoutEffect(() => {
+    const g = groupRef.current
+    if (g) g.position.copy(moonPosition)
+  }, [moonPosition])
+
+  useFrame((state, delta) => {
+    const p = useScrollStore.getState().scrollProgress
+    const g = groupRef.current
+    if (g) {
+      computeMoonVisualPosition(
+        g.position,
+        moonPosition,
+        moonDeep,
+        earthPos,
+        isMobile,
+        p,
+        state.clock.elapsedTime
+      )
+    }
+
     const m = meshRef.current
     if (m) m.rotation.y += 0.006 * delta
   })
@@ -108,18 +139,16 @@ export const Moon = memo(function Moon() {
     }
   }, [material, maps])
 
-  const pos: [number, number, number] = [moonPosition.x, moonPosition.y, moonPosition.z]
-
   if (mapFailed || !material) {
     return (
-      <group position={pos}>
+      <group ref={groupRef}>
         <MoonPlaceholder />
       </group>
     )
   }
 
   return (
-    <group position={pos}>
+    <group ref={groupRef}>
       <mesh ref={meshRef} material={material}>
         <sphereGeometry args={[MOON_RADIUS, MOON_SPHERE_SEGMENTS, MOON_SPHERE_SEGMENTS]} />
       </mesh>

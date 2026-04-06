@@ -14,7 +14,7 @@ export function Scene() {
         alpha: false,
         powerPreference: 'high-performance',
         toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 0.88,
+        toneMappingExposure: 0.95,
         outputColorSpace: THREE.SRGBColorSpace,
       }}
       camera={{
