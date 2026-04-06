@@ -1,38 +1,56 @@
+import { useLanguageStore } from '@/store/useLanguageStore'
+
 const phases = [
   {
     n: 'I',
-    title: 'Погружение',
-    text: 'Интервью, аудитория, конкуренты и цели — фиксируем смысл, не только визуал.',
+    title: { ru: 'Погружение', en: 'Immersion' },
+    text: {
+      ru: 'Бриф, контекст, аудитория, конкуренты. Находим позицию и формулируем обещание — чтобы дизайн имел опору.',
+      en: 'Brief, context, audience, competitors. We define the position and the promise—so design has an anchor.',
+    },
   },
   {
     n: 'II',
-    title: 'Направление',
-    text: 'Арт-дирекшн и тон коммуникации: одна линия, которая держит всю систему.',
+    title: { ru: 'Направление', en: 'Direction' },
+    text: {
+      ru: 'Арт‑дирекшн, язык, типографика, сетка. Одна линия, которая держит всё: от заголовка до анимации.',
+      en: 'Art direction, language, typography, grid. One line that holds it all—from headline to motion.',
+    },
   },
   {
     n: 'III',
-    title: 'Дизайн-система',
-    text: 'Ключевые экраны и компоненты — готово к передаче в разработку без потерь.',
+    title: { ru: 'Дизайн-система', en: 'Design system' },
+    text: {
+      ru: 'Компоненты, состояния, ключевые экраны. Система, которую можно развивать, а не поддерживать “вручную”.',
+      en: 'Components, states, key screens. A system you can scale—not babysit manually.',
+    },
   },
   {
     n: 'IV',
-    title: 'Сборка',
-    text: 'Сопровождаем внедрение, полируем детали, сдаём с документацией.',
+    title: { ru: 'Сборка', en: 'Assembly' },
+    text: {
+      ru: 'Сопровождаем внедрение, полируем ощущения, доводим перформанс. Сдаём как продукт — с документацией.',
+      en: 'We support implementation, polish the feel, dial performance in. Delivered like a product—with documentation.',
+    },
   },
 ]
 
 export function WorkSection() {
+  const lang = useLanguageStore(s => s.lang)
+  const isRu = lang === 'ru'
+
   return (
     <div>
       <p className="mb-4 font-[family-name:var(--font-ui)] text-[0.65rem] font-medium uppercase tracking-[0.35em] text-white/35">
-        02 — Процесс
+        02 — {isRu ? 'Процесс' : 'Process'}
       </p>
       <h2 className="font-display mb-4 text-[clamp(2.25rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.02em] text-white">
-        От смысла к пикселю
+        {isRu ? 'Процесс без чёрного ящика' : 'No black box process'}
       </h2>
-      <p className="mb-14 max-w-xl font-[family-name:var(--font-ui)] text-sm leading-relaxed text-white/45 md:text-base">
-        Каждый этап — согласованный шаг. Без чёрного ящика: вы видите, где находится продукт и зачем
-        каждое решение.
+      <p className="mb-14 font-[family-name:var(--font-ui)] text-sm leading-relaxed text-white/45 md:text-base">
+        {isRu
+          ? 'Четыре этапа, один ритм. Вы всегда видите статус, артефакты и логику решений — без “сюрпризов” на финале.'
+          : 'Four phases, one rhythm. You always see the status, artifacts, and the logic behind decisions—no end-stage surprises.'}
       </p>
       <ol className="relative border-l border-white/[0.12]">
         {phases.map(phase => (
@@ -43,9 +61,9 @@ export function WorkSection() {
             >
               {phase.n}
             </span>
-            <h3 className="font-display text-2xl font-medium text-white md:text-3xl">{phase.title}</h3>
-            <p className="mt-3 max-w-lg font-[family-name:var(--font-ui)] text-sm leading-relaxed text-white/50 md:text-base">
-              {phase.text}
+            <h3 className="font-display text-2xl font-medium text-white md:text-3xl">{phase.title[lang]}</h3>
+            <p className="mt-3 font-[family-name:var(--font-ui)] text-sm leading-relaxed text-white/50 md:text-base">
+              {phase.text[lang]}
             </p>
           </li>
         ))}

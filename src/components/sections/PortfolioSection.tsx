@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useReducedMotion } 
 import { useCallback, useEffect, useState } from 'react'
 import type { PortfolioProject } from '@/components/sections/portfolioData'
 import { PORTFOLIO_PROJECTS } from '@/components/sections/portfolioData'
+import { useLanguageStore } from '@/store/useLanguageStore'
 
 function useFinePointer() {
   const [ok, setOk] = useState(false)
@@ -33,6 +34,8 @@ const row = {
 }
 
 export function PortfolioSection() {
+  const lang = useLanguageStore(s => s.lang)
+  const isRu = lang === 'ru'
   const reduceMotion = useReducedMotion()
   const finePointer = useFinePointer()
   const showPreview = finePointer && !reduceMotion
@@ -91,13 +94,15 @@ export function PortfolioSection() {
       )}
 
       <p className="mb-4 font-[family-name:var(--font-ui)] text-[0.65rem] font-medium uppercase tracking-[0.35em] text-white/35">
-        03 — Избранное
+        03 — {isRu ? 'Избранное' : 'Selected'}
       </p>
       <h2 className="font-display mb-4 text-[clamp(2.25rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.02em] text-white">
-        Работы в одном ритме
+        {isRu ? 'Кейсы, которые держат кадр' : 'Cases that hold the frame'}
       </h2>
-      <p className="mb-14 max-w-xl font-[family-name:var(--font-ui)] text-sm leading-relaxed text-white/45 md:mb-16 md:text-base">
-        Наведите строку — превью следует за курсором. Клик открывает страницу проекта в новой вкладке.
+      <p className="mb-14 font-[family-name:var(--font-ui)] text-sm leading-relaxed text-white/45 md:mb-16 md:text-base">
+        {isRu
+          ? 'Наводите — превью следует за курсором. Открывайте кейс в новой вкладке и смотрите, как мы собираем ритм, свет и структуру.'
+          : 'Hover—preview follows your pointer. Open a case in a new tab and see how we build rhythm, light, and structure.'}
       </p>
 
       <motion.ul
@@ -119,14 +124,14 @@ export function PortfolioSection() {
               onBlur={() => setActive(null)}
             >
               <span className="block font-[family-name:var(--font-ui)] text-xs uppercase tracking-[0.2em] text-white/35">
-                {p.tag}
+                {p.tag[lang]}
               </span>
               <span className="font-display mt-2 block text-[clamp(1.65rem,3.8vw,2.65rem)] font-medium text-white transition-colors group-hover:text-white">
                 {p.title}
               </span>
               <span className="mt-3 flex items-center gap-2 font-[family-name:var(--font-ui)] text-[0.7rem] uppercase tracking-[0.18em] text-white/30 transition group-hover:text-white/50">
                 <span className="block h-px w-0 bg-white/50 transition-all duration-500 group-hover:w-10" />
-                Смотреть кейс
+                {isRu ? 'Открыть кейс' : 'Open case'}
               </span>
             </a>
           </motion.li>
