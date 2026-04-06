@@ -25,7 +25,7 @@ export function HeroSection() {
           {isRu ? 'Студия разработки и дизайна' : 'Development and design studio'}
         </p>
         <h1 className="font-display max-w-[22ch] text-[clamp(2.9rem,7vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.03em] text-white">
-          {isRu ? 'Создаем настоящие цифровые продукты которые приводят клиентов' : 'We create real digital products that bring clients'}
+          {isRu ? 'Наши проекты приведут до 50% новых клиентов' : 'Our projects will bring 50% new clients'}
         </h1>
         <p className="mt-7 max-w-[60ch] font-[family-name:var(--font-ui)] text-base leading-relaxed text-white/60 md:text-lg">
           {isRu

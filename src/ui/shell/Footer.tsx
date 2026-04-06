@@ -26,7 +26,7 @@ export function Footer() {
   const madeBy = lang === 'ru' ? 'сделано @awwwdde' : 'made by @awwwdde'
 
   return (
-    <div className={`mx-auto mb-[15px] mt-10 md:mt-12 ${shellWidthClass}`}>
+    <div className={`mx-auto mt-10 md:mt-12 ${shellWidthClass}`}>
       <footer className={panelClass} aria-label={footerAriaLabel}>
         <div className="px-4 py-3 sm:px-5 sm:py-3.5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">

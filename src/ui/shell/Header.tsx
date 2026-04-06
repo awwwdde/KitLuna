@@ -6,7 +6,7 @@ import { useAudioStore } from '@/store/useAudioStore'
 import { useLanguageStore } from '@/store/useLanguageStore'
 import { useScrollStore } from '@/store/useScrollStore'
 import type { Lang } from '@/i18n/lang'
-import { NAV, panelClass, shellWidthClass } from '@/ui/shell/shared'
+import { NAV, panelClass, shellNavBtnClass, shellWidthClass } from '@/ui/shell/shared'
 
 const HEADER_THRESHOLD = 0.065
 
@@ -72,15 +72,20 @@ export function Header() {
               </span>
 
               <nav
-              className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:justify-end"
-              aria-label={sectionsAriaLabel}
-            >
-              {NAV.map(link => (
-                <button key={link.id} type="button" className={sectionsAriaLabel} onClick={() => go(`#${link.id}`)}>
-                  {link.label[lang]}
-                </button>
-              ))}
-            </nav>
+                className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:justify-end"
+                aria-label={sectionsAriaLabel}
+              >
+                {NAV.map(link => (
+                  <button
+                    key={link.id}
+                    type="button"
+                    className={shellNavBtnClass}
+                    onClick={() => go(`#${link.id}`)}
+                  >
+                    {link.label[lang]}
+                  </button>
+                ))}
+              </nav>
             </div>
           </div>
         </div>
